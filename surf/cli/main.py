@@ -690,7 +690,7 @@ def prepare_dataset(
 @click.option(
     "--attributes",
     "-a",
-    default="seoirsem/tulu3-SFT-500k-25k-data-attributes",
+    default="seoirsem/CHUNKY-tulu3-SFT-25k-attributes",
     help="HuggingFace dataset ID or path to local JSONL file",
 )
 @click.option(
@@ -797,7 +797,7 @@ def run_em(
     Examples:
 
         # Basic usage with HuggingFace dataset
-        surf run-em --rubric rubrics/rebuttal.yaml --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes
+        surf run-em --rubric rubrics/rebuttal.yaml --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes
 
         # Use local file
         surf run-em --rubric rubrics/rebuttal.yaml --attributes data/tulu/pseudo_sae_attributes.jsonl
@@ -805,13 +805,13 @@ def run_em(
         # Use vLLM for query generation
         surf run-em \\
             --rubric rubrics/rebuttal.yaml \\
-            --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes \\
+            --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes \\
             --query-model vllm:meta-llama/Llama-3.1-70B-Instruct
 
         # More iterations with larger buffer
         surf run-em \\
             --rubric rubrics/rebuttal.yaml \\
-            --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes \\
+            --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes \\
             --iterations 50 \\
             --buffer-size 20
     """
@@ -873,7 +873,7 @@ def run_em(
 @click.option(
     "--attributes",
     "-a",
-    default="seoirsem/tulu3-SFT-500k-25k-data-attributes",
+    default="seoirsem/CHUNKY-tulu3-SFT-25k-attributes",
     help="HuggingFace dataset ID or path to local JSONL file",
 )
 @click.option(
@@ -951,13 +951,13 @@ def sweep(
     Examples:
 
         # Run 5 parallel experiments with HuggingFace dataset
-        surf sweep --rubric rubrics/rebuttal.yaml --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes -o sweep_out
+        surf sweep --rubric rubrics/rebuttal.yaml --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes -o sweep_out
 
         # Run with local file
         surf sweep --rubric rubrics/rebuttal.yaml --attributes data/tulu/pseudo_sae_attributes.jsonl -o sweep_out
 
         # Run 10 experiments with 30 iterations each
-        surf sweep --rubric rubrics/rebuttal.yaml --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes \\
+        surf sweep --rubric rubrics/rebuttal.yaml --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes \\
             -o sweep_out --num-runs 10 --iterations 30
     """
     click.echo(f"Running sweep: {num_runs} runs x {iterations} iterations")

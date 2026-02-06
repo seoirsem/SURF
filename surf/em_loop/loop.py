@@ -52,7 +52,7 @@ class EMLoop:
         Args:
             rubric_path: Path to YAML rubric with principle_specific_details
             attributes: HuggingFace dataset ID or path to local JSONL file
-                HuggingFace: "seoirsem/tulu3-SFT-500k-25k-data-attributes" (downloads automatically)
+                HuggingFace: "seoirsem/CHUNKY-tulu3-SFT-25k-attributes" (downloads automatically)
                 Local: "./data/pseudo_sae_attributes.jsonl"
             target_model: Model being red-teamed
             judge_model: Model for judging (Opus 4.5 recommended)

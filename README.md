@@ -8,7 +8,7 @@ There are two main parts to the program:
 - prepare-dataset
 - sweep (run EM loop)
 
-There is a pre-built dataset on Hugging Face available for use (`seoirsem/tulu3-SFT-500k-25k-data-attributes`), which uses the Tulu-3 SFT dataset as the base. The tool likely works best when the data (and hence attributes) closely align with those used for training. We additionally provide an example "rebuttal" rubric.
+There is a pre-built dataset on Hugging Face available for use [seoirsem/CHUNKY-tulu3-SFT-25k-attributes](https://huggingface.co/datasets/seoirsem/CHUNKY-tulu3-SFT-25k-attributes), which uses the Tulu-3 SFT dataset as the base. There is also a full set of prepared data including embeddings and clusters at [seoirsem/CHUNKY-tulu3-SFT-25k-attributes-full](https://huggingface.co/datasets/seoirsem/CHUNKY-tulu3-SFT-25k-attributes-full). The tool likely works best when the data (and hence attributes) closely align with those used for training. We additionally provide an example "rebuttal" rubric.
 
 For examples of frontier model outputs using this tool, please visit [chunkyposttraining.com](https://chunkyposttraining.com/)
 
@@ -82,7 +82,7 @@ Runs multiple parallel EM loops:
 ```bash
 # With HuggingFace dataset
 uv run -m surf.cli.main sweep \
-    --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes \
+    --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes \
     --rubric rubrics/rebuttal.yaml \
     --output-dir results/rebuttal \
     --num-runs 5 \
@@ -124,7 +124,7 @@ For running a single EM loop without parallelism:
 
 ```bash
 uv run -m surf.cli.main run-em \
-    --attributes seoirsem/tulu3-SFT-500k-25k-data-attributes \
+    --attributes seoirsem/CHUNKY-tulu3-SFT-25k-attributes \
     --rubric rubrics/rebuttal.yaml \
     --output-dir results/single_run \
     --iterations 20

@@ -13,7 +13,7 @@ class AttributeFileLoader:
     Loads and samples attributes from a HuggingFace dataset or local JSONL file.
 
     Supports two source types:
-    1. HuggingFace dataset ID (e.g., "seoirsem/tulu3-SFT-500k-25k-data-attributes")
+    1. HuggingFace dataset ID (e.g., "seoirsem/CHUNKY-tulu3-SFT-25k-attributes")
     2. Local JSONL file path (e.g., "./data/pseudo_sae_attributes.jsonl")
 
     Expected format (one JSON object per line or HF dataset row):
