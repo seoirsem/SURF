@@ -1,6 +1,6 @@
 # SURF: Surfacing Unintended Response Failures
 
-This repository contains the SURF tool as described in the paper [Chunky Post-Training](add-once-up).
+This repository contains the SURF tool as described in the paper [Chunky Post-Training](https://arxiv.org/abs/2602.05910).
 
 This tool iterates over abstract prompt categories to find areas of category space that elicit a given unwanted behavior pattern from a model. The goal is to find examples of a model exhibiting behavior in a contextually incorrect situation. This tool works with a user-defined rubric, and so is adaptable to many possible targets.
 

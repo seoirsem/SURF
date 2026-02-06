@@ -114,6 +114,10 @@ class EMLoop:
         # Results streamer
         self.streamer = JSONStreamer(str(self.output_dir))
 
+        # Failures log for debugging
+        self.failures_path = self.output_dir / "failures.jsonl"
+        self._failures_file = None
+
         # Iteration counter
         self.iteration = 0
 
@@ -139,6 +143,20 @@ class EMLoop:
         """Print message unless in quiet mode."""
         if not self.quiet:
             print(msg)
+
+    def _log_failure(self, failure_type: str, response: str, attributes: List[str]):
+        """Log a failure to the failures file for debugging."""
+        if self._failures_file is None:
+            self._failures_file = open(self.failures_path, "a")
+
+        record = {
+            "iteration": self.iteration,
+            "type": failure_type,
+            "response_preview": response[:500] if response else None,
+            "attributes": attributes[:3] if attributes else [],
+        }
+        self._failures_file.write(json.dumps(record, ensure_ascii=False) + "\n")
+        self._failures_file.flush()
 
     def _try_resume(self) -> bool:
         """
@@ -236,6 +254,7 @@ class EMLoop:
             response = await self.query_model.call(prompt)
 
             if not response:
+                self._log_failure("empty_response", "", attributes)
                 return None
 
             # Parse first query from response - try multiple tag formats
@@ -272,19 +291,15 @@ class EMLoop:
                 if extracted:
                     return extracted
 
-            # Log failure for debugging (only first few per iteration)
+            # Log failure for debugging
             self._query_gen_failures += 1
-            if self._query_gen_failures <= 3:
-                print(f"  Query gen failed - response preview: {response[:200]!r}")
+            self._log_failure("parse_failed", response, attributes)
 
             return None
 
         except Exception as e:
             self._query_gen_failures += 1
-            # Only log first error with traceback, rest just count
-            if self._query_gen_failures == 1 and not self.quiet:
-                print(f"Query generation error: {e}")
-                traceback.print_exc()
+            self._log_failure(f"exception: {e}", "", attributes)
             return None
 
     async def _get_target_response(self, query: str) -> Optional[str]:
@@ -565,6 +580,9 @@ class EMLoop:
         await self.target_model.shutdown()
         await self.query_model.shutdown()
         await self.judge.model_resource.shutdown()
+        if self._failures_file is not None:
+            self._failures_file.close()
+            self._failures_file = None
 
 
 async def run_em_loop(
