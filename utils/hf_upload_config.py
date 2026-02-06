@@ -14,7 +14,7 @@ SOURCE_DATASET_URL = "https://huggingface.co/datasets/allenai/tulu-3-sft-mixture
 
 # Project links
 GITHUB_URL = "https://github.com/seoirsem/SURF"
-PAPER_URL = "https://arxiv.org/abs/XXXX.XXXXX"  # Update when published
+PAPER_URL = "https://arxiv.org/abs/2602.05910"
 
 
 def get_yaml_frontmatter() -> str:
